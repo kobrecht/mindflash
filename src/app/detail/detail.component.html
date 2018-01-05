@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-8">
+      <h2>{{repo?.name}} Repository</h2>
+    </div>
+    <div class="col-xs-4">
+      <button type="button" class="btn btn-default" (click)="backHome()" title="Home">&lt;</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">{{repo?.description}}</div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <b>Issues:</b> {{repo?.open_issues_count}}
+    </div>
+  </div>
+
+    <div class="panel panel-info">
+      <div class="panel-heading">Stargazers</div>
+      <div class="panel-body">
+        <div *ngFor="let stg of stargazers" class="col-xs-4">
+          {{stg.login}}
+        </div>
+      </div>
+    </div>
+
+    <div [hidden]="error.length < 1" class="alert alert-danger">
+      <ul>
+        <li *ngFor="let err of error">{{err}}</li>
+      </ul>
+    </div>
+  </div>
+  

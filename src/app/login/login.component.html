@@ -1,0 +1,18 @@
+<div class="container">
+  <h2>Please enter authentication information</h2>
+
+  <form (ngSubmit)="login()" #loginForm="ngForm">
+    <div class="form-group">
+      <label for="oauth">Token</label>
+      <input id="oauth" name="oauth" type="text" [(ngModel)]="oauth" minlength=15 class="form-control" placeholder="Paste token here" required/>
+      <div [hidden]="loginForm.valid || loginForm.pristine" class="alert alert-danger">GitHub OAuth Token required</div>
+    </div>
+
+    <button type="submit" class="btn btn-success pull-right" [disabled]="loginForm.invalid">Login</button>
+  </form>
+  <div [hidden]="error.length < 1" class="alert alert-danger">
+    <ul>
+      <li *ngFor="let err of errors">{{err}}</li>
+    </ul>
+  </div>
+</div>

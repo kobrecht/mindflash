@@ -1,0 +1,51 @@
+<div class="container">
+  <h2>Welcome, {{user?.login}}</h2>
+
+  <form #homeForm="ngForm">
+    <div class="form-group">
+      <label for="org">Organization</label>
+      <select id="org" name="org" [(ngModel)]="org" class="form-control" (change)="reload()">
+        <option *ngFor="let o of orgs" value="{{o}}">{{o.login}}</option>
+      </select>
+    </div>
+  </form>
+  <div [hidden]="error.length < 1" class="alert alert-danger">
+    <ul>
+      <li *ngFor="let err of error">{{err}}</li>
+    </ul>
+  </div>
+
+  <div [hidden]="! org">
+    <h2>{{org}} <small>{{organization?.description}}</small></h2>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <span>Public Members</span>
+        <div class="btn-group pull-right" role="group">
+          <button type="button" class="btn btn-default" (click)="pageMembers(-1)" [disabled]="members?.page === 1">&lt;</button>
+          <button type="button" class="btn btn-default" (click)="pageMembers(1)" [disabled]="members?.view.length < 10">&gt;</button>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div *ngFor="let mem of members?.view" class="col-xs-4">
+          {{mem.login}}
+          <img src="{{mem.avatar_url}}" width="50px"/>
+        </div>
+      </div>
+    </div>
+        
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          <span>Repositories</span>
+          <div class="btn-group pull-right" role="group">
+            <button type="button" class="btn btn-default" (click)="pageRepos(-1)" [disabled]="repos?.page === 1">&lt;</button>
+            <button type="button" class="btn btn-default" (click)="pageRepos(1)" [disabled]="repos?.view.length < 10">&gt;</button>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div *ngFor="let rep of repos?.view" class="col-xs-4">
+            <span (click)="showRepo(rep)">{{rep.name}}</span>
+          </div>
+        </div>
+      </div>          
+    </div>
+</div>
